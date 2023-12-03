@@ -61,5 +61,5 @@ public class WeatherService {
             e.printStackTrace();
         }
         return CompletableFuture.completedFuture(result);
-    };
+    }
 }
