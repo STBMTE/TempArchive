@@ -43,10 +43,10 @@ public class WeatherDataPuller {
         Hashtable <String, Double> temperature = new Hashtable<>();
 
         cityesSettings.getCitys().forEach(city -> {
-            Double openWeatherMapTemperatureFuture = weatherService.getTemperaturOpenWeatherMap(city);
-            Double openMeteoTemperatureFuture = weatherService.getTemperaturOpenMeteo(city);
-            Double openWeatherApiFuture = weatherService.getTemperaturWeatherApi(city);
-            temperature.put(city, (openWeatherMapTemperatureFuture + openMeteoTemperatureFuture + openWeatherApiFuture) / 3);
+            CompletableFuture<Double> openWeatherMapTemperatureFuture = weatherService.getTemperaturOpenWeatherMap(city);
+            CompletableFuture<Double> openMeteoTemperatureFuture = weatherService.getTemperaturOpenMeteo(city);
+            CompletableFuture<Double> openWeatherApiFuture = weatherService.getTemperaturWeatherApi(city);
+            temperature.put(city, (openWeatherMapTemperatureFuture.join() + openMeteoTemperatureFuture.join() + openWeatherApiFuture.join()) / 3);
         });
 
         temperature.forEach((city, weather) -> {
