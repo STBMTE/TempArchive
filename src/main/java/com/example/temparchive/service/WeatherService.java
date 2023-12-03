@@ -1,7 +1,6 @@
 package com.example.temparchive.service;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -35,7 +34,7 @@ public class WeatherService {
         return result;
     }
 
-    Double getTemperaturOpenMeteo(String city){
+    public Double getTemperaturOpenMeteo(String city){
         Double result = 0d;
         try {
             LinkedHashMap cityCoordinate = (LinkedHashMap) restTemplate.getForObject("https://geocoding-api.open-meteo.com/v1/search?name=" + city.split(",")[0] + "&count=1&format=json", LinkedHashMap.class);
@@ -49,7 +48,7 @@ public class WeatherService {
         return result;
     }
 
-    Double getTemperaturWeatherApi(String city){
+    public Double getTemperaturWeatherApi(String city){
         Double result = 0d;
         try {
             LinkedHashMap jsonData = restTemplate.getForObject("http://api.weatherapi.com/v1/current.json?key=" + apiKeyOpenWeatherApi + "&q=" + city, LinkedHashMap.class);
